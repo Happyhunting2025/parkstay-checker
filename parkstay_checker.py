@@ -3,7 +3,7 @@ import time
 import smtplib 
 from datetime import datetime 
 from email.mime.text import MIMEText 
-from email.mime.multipart import MIMEMutipart 
+from email.mime.multipart import MIMEMultipart 
 from selenium import webdriver 
 from selenium.webdriver.chrome.options import Options 
 from selenium.webdriver.chrome.service import Service 
