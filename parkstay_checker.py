@@ -14,9 +14,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 # (GitHub Ac ons will override them using secrets) 
 # ========================================================= 
  
-SITE_ID = int(os.getenv("SITE_ID", 139))              # Campground/site ID 
-ARRIVAL_DATE = os.getenv("ARRIVAL_DATE", "2025/11/07") 
-DEPARTURE_DATE = os.getenv("DEPARTURE_DATE", "2025/11/08") 
+SITE_ID = int(os.getenv("SITE_ID", 147))              # Campground/site ID 
+ARRIVAL_DATE = os.getenv("ARRIVAL_DATE", "2026/02/04") 
+DEPARTURE_DATE = os.getenv("DEPARTURE_DATE", "2026/02/05") 
 NUM_ADULTS = int(os.getenv("NUM_ADULTS", 2)) 
 NUM_CHILDREN = int(os.getenv("NUM_CHILDREN", 0)) 
 NUM_INFANTS = int(os.getenv("NUM_INFANTS", 0)) 
