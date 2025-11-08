@@ -1,11 +1,11 @@
 import os 
-import me 
+import time 
 import smtplib 
-from dateme import dateme 
+from datetime import datetime 
 from email.mime.text import MIMEText 
-from email.mime.mul part import MIMEMul part 
+from email.mime.multipart import MIMEMutipart 
 from selenium import webdriver 
-from selenium.webdriver.chrome.op ons import Op ons 
+from selenium.webdriver.chrome.options import Options 
 from selenium.webdriver.chrome.service import Service 
 from webdriver_manager.chrome import ChromeDriverManager 
  
@@ -50,49 +50,49 @@ PARKSTAY_URL = (
 # ========================================================= 
  
 def setup_driver(): 
-    op ons = Op ons() 
-    op ons.add_argument("--headless=new") 
-    op ons.add_argument("--disable-gpu") 
-    op ons.add_argument("--no-sandbox") 
-    op ons.add_argument("--disable-dev-shm-usage") 
-    op ons.add_argument("--window-size=1920,1080") 
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), op ons=op ons) 
+    options = Options() 
+    options.add_argument("--headless=new") 
+    options.add_argument("--disable-gpu") 
+    options.add_argument("--no-sandbox") 
+    options.add_argument("--disable-dev-shm-usage") 
+    options.add_argument("--window-size=1920,1080") 
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options) 
  
 def check_availability(): 
     driver = setup_driver() 
     try: 
         driver.get(PARKSTAY_URL) 
-        me.sleep(8) 
+        time.sleep(8) 
         html = driver.page_source.lower() 
  
         if any(k in html for k in ["book now", "add to cart", "available"]): 
-            print(f"[{dateme.now()}]  Campsite appears available!") 
-            send_email_no fica on() 
+            print(f"[{datetime.now()}]  Campsite appears available!") 
+            send_email_notification() 
         else: 
-            print(f"[{dateme.now()}]  No availability yet.") 
-    except Excep on as e: 
-        print(f"[{dateme.now()}]  Error checking site: {e}") 
+            print(f"[{datetime.now()}]  No availability yet.") 
+    except Exception as e: 
+        print(f"[{datetime.now()}]  Error checking site: {e}") 
     finally: 
         driver.quit() 
  
-def send_email_no fica on(): 
+def send_email_notification(): 
     subject = " Parks WA Campsite Available!" 
     body = f"A campsite may now be available! Check here:\n\n{PARKSTAY_URL}" 
  
-    msg = MIMEMul part() 
+    msg = MIMEMultipart() 
     msg["From"] = EMAIL_FROM 
     msg["To"] = EMAIL_TO 
     msg["Subject"] = subject 
-    msg.a ach(MIMEText(body, "plain")) 
+    msg.attach(MIMEText(body, "plain")) 
  
     try: 
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server: 
-            server.star ls() 
+            server.starttls() 
             server.login(EMAIL_FROM, EMAIL_PASSWORD) 
             server.send_message(msg) 
-        print(f"[{dateme.now()}]  Email sent to {EMAIL_TO}") 
-    except Excep on as e: 
-        print(f"[{dateme.now()}]  Failed to send email: {e}") 
+        print(f"[{datetime.now()}]  Email sent to {EMAIL_TO}") 
+    except Exception as e: 
+        print(f"[{datetime.now()}]  Failed to send email: {e}") 
  
 def main(): 
     print(f"Monitoring: {PARKSTAY_URL}") 
