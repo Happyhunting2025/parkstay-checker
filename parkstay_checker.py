@@ -89,7 +89,7 @@ def send_email_notification():
         print(f"Connecting to SMTP server {SMTP_SERVER}:{SMTP_PORT} as {EMAIL_FROM}...")
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server: 
             server.starttls() 
-            server.login(EMAIL_FROM, EMAIL_PASSWORD) 
+            server.login(os.getenv("SMTP_USERNAME"), EMAIL_PASSWORD) 
             server.send_message(msg) 
         print(f"[{datetime.now()}]  Email sent to {EMAIL_TO}") 
     except Exception as e: 
