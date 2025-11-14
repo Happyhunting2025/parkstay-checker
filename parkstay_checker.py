@@ -86,6 +86,7 @@ def send_email_notification():
     msg.attach(MIMEText(body, "plain")) 
  
     try: 
+        print(f"Connecting to SMTP server {SMTP_SERVER}:{SMTP_PORT} as {EMAIL_FROM}...")
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server: 
             server.starttls() 
             server.login(EMAIL_FROM, EMAIL_PASSWORD) 
