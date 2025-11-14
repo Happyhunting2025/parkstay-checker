@@ -99,4 +99,5 @@ def main():
     check_availability() 
  
 if __name__ == "__main__": 
-    main()
+    print("Sending test email...")
+ send_email_notification()
