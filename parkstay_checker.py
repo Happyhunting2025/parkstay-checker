@@ -100,4 +100,4 @@ def main():
  
 if __name__ == "__main__": 
     print("Sending test email...")
- send_email_notification()
+    send_email_notification()
