@@ -27,7 +27,7 @@ CHECK_INTERVAL_MINUTES = int(os.getenv("CHECK_INTERVAL_MINUTES", 30))
 EMAIL_FROM = os.getenv("EMAIL_FROM", "") 
 EMAIL_TO = os.getenv("EMAIL_TO", "") 
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "") 
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com") 
+SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.office365.com") 
 SMTP_PORT = int(os.getenv("SMTP_PORT", 587)) 
  
 # ========================================================= 
