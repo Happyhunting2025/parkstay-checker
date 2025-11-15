@@ -133,11 +133,21 @@ def send_email_notification():
         print(f"[{datetime.now()}]  Email sent to {EMAIL_TO}") 
     except Exception as e: 
         print(f"[{datetime.now()}]  Failed to send email: {e}") 
- 
-def main(): 
-    print(f"Monitoring: {PARKSTAY_URL}") 
-    check_availability() 
- 
-if __name__ == "__main__": 
-    print("Sending test email...")
-    send_email_notification()
+
+availability = check_availability(driver)
+
+if availability:
+   print("Campsite may be available!")
+   send_email_notification()
+else:
+   print("No availability for these dates")
+
+
+
+#def main(): 
+#    print(f"Monitoring: {PARKSTAY_URL}") 
+#    check_availability() 
+# 
+#if __name__ == "__main__": 
+#    print("Sending test email...")
+#    send_email_notification()
