@@ -64,6 +64,7 @@ def check_availability():
         driver.get(PARKSTAY_URL) 
         time.sleep(8) 
         html = driver.page_source.lower() 
+        print(f"{html}")
  
         if any(k in html for k in ["book now"]): 
             print(f"[{datetime.now()}]  Campsite appears available!") 
