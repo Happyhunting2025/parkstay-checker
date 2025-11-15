@@ -57,23 +57,62 @@ def setup_driver():
     options.add_argument("--disable-dev-shm-usage") 
     options.add_argument("--window-size=1920,1080") 
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options) 
- 
-def check_availability(): 
-    driver = setup_driver() 
-    try: 
-        driver.get(PARKSTAY_URL) 
-        time.sleep(8) 
-        html = driver.page_source.lower()
- 
-        if any(k in html for k in ["book now"]): 
-            print(f"[{datetime.now()}]  Campsite appears available!") 
-            send_email_notification() 
-        else: 
-            print(f"[{datetime.now()}]  No availability yet.") 
-    except Exception as e: 
-        print(f"[{datetime.now()}]  Error checking site: {e}") 
-    finally: 
-        driver.quit() 
+
+driver = setup_driver()
+def check_availability(driver):
+    try:
+        time.sleep(4)
+
+        no_avail_texts=[
+         "not available",
+         "no sites available",
+         "no availability",
+         "sorry"
+        ]
+
+        page_text = driver.page_source.lower()
+        for msg in no_avail_texts:
+           if msg in page_text:
+              print("Detected explicit 'no availability' message.")
+              return False
+
+        site_cards = driver.find_elements(By.CSS_SELECTOR, ".result-card, .booking-card, .site-card")
+        if not site_cards:
+            print("No site cards found - likely no availability.")
+            return False
+
+        book_buttons = driver.find_elements(By.XPATH,"//button[contains(text(),'Book')]")
+        for btn in book_buttons:
+           if btn.is_eneabled() and btn.is_displayed():
+              print("Found ENABLED book button - likely availability.")
+              return True
+
+        print("All 'Book' buttons disabled - no availability.")
+        return False
+
+except Exception as e:
+   print(f"Error during availability check: {e}")
+   return False
+
+
+
+
+#def check_availability(): 
+#    driver = setup_driver() 
+#    try: 
+#        driver.get(PARKSTAY_URL) 
+#        time.sleep(8) 
+#        html = driver.page_source.lower()
+# 
+#       if any(k in html for k in ["book now"]): 
+#            print(f"[{datetime.now()}]  Campsite appears available!") 
+#            send_email_notification() 
+#        else: 
+#            print(f"[{datetime.now()}]  No availability yet.") 
+#    except Exception as e: 
+#        print(f"[{datetime.now()}]  Error checking site: {e}") 
+#    finally: 
+#        driver.quit() 
  
 def send_email_notification(): 
     subject = " Parks WA Campsite Available!" 
