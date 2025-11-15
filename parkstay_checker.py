@@ -15,8 +15,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # ========================================================= 
  
 SITE_ID = int(os.getenv("SITE_ID", 147))              # Campground/site ID 
-ARRIVAL_DATE = os.getenv("ARRIVAL_DATE", "2026/02/04") 
-DEPARTURE_DATE = os.getenv("DEPARTURE_DATE", "2026/02/05") 
+ARRIVAL_DATE = os.getenv("ARRIVAL_DATE", "2026/05/05") 
+DEPARTURE_DATE = os.getenv("DEPARTURE_DATE", "2026/05/06") 
 NUM_ADULTS = int(os.getenv("NUM_ADULTS", 2)) 
 NUM_CHILDREN = int(os.getenv("NUM_CHILDREN", 0)) 
 NUM_INFANTS = int(os.getenv("NUM_INFANTS", 0)) 
