@@ -90,9 +90,9 @@ def check_availability(driver):
         print("All 'Book' buttons disabled - no availability.")
         return False
 
-except Exception as e:
-   print(f"Error during availability check: {e}")
-   return False
+   except Exception as e:
+       print(f"Error during availability check: {e}")
+       return False
 
 
 
