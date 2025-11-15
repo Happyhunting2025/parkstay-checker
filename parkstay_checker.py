@@ -65,7 +65,7 @@ def check_availability():
         time.sleep(8) 
         html = driver.page_source.lower() 
  
-        if any(k in html for k in ["book now", "add to cart", "available"]): 
+        if any(k in html for k in ["book now"]): 
             print(f"[{datetime.now()}]  Campsite appears available!") 
             send_email_notification() 
         else: 
