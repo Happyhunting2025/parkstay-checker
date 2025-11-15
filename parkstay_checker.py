@@ -81,14 +81,14 @@ def check_availability(driver):
             print("No site cards found - likely no availability.")
             return False
 
-        book_buttons = driver.find_elements(By.XPATH,"//button[contains(text(),'Book')]")
+        book_buttons = driver.find_elements(By.XPATH,"//button[contains(text(),'Book Now')]")
         for btn in book_buttons:
            if btn.is_eneabled() and btn.is_displayed():
               print("Found ENABLED book button - likely availability.")
               return True
 
-        print("All 'Book' buttons disabled - no availability.")
-        return False
+              print("All 'Book' buttons disabled - no availability.")
+              return False
 
     except Exception as e:
         print(f"Error during availability check: {e}")
