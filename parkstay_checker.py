@@ -71,16 +71,16 @@ def check_availability(driver):
          "sorry"
         ]
 
-        page_text = driver.page_source.lower()
-        for msg in no_avail_texts:
-           if msg in page_text:
-              print("Detected explicit 'no availability' message.")
-              return False
+        #page_text = driver.page_source.lower()
+        #for msg in no_avail_texts:
+        #   if msg in page_text:
+        #      print("Detected explicit 'no availability' message.")
+        #      return False
 
-        site_cards = driver.find_elements(By.CSS_SELECTOR, ".result-card, .booking-card, .site-card")
-        if not site_cards:
-            print("No site cards found - likely no availability.")
-            return False
+        #site_cards = driver.find_elements(By.CSS_SELECTOR, ".result-card, .booking-card, .site-card")
+        #if not site_cards:
+        #    print("No site cards found - likely no availability.")
+        #    return False
 
         book_buttons = driver.find_elements(By.XPATH,"//button[contains(text(),'Book Now')]")
         for btn in book_buttons:
